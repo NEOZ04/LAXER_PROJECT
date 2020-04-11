@@ -1,0 +1,10 @@
+---
+main: aliuly\mtp\Main
+api:
+- 3.0.0
+load: POSTWORLD
+name: MagicTelePortal
+description: A simple portal plugin
+version: 1.3.4
+author: aliuly
+...

@@ -1,0 +1,11 @@
+---
+RestrictEntityMovement: true
+RestrictPVP: false
+UpdatePlotLiquids: false
+EditBorderBlocks: true
+ClaimPrice: 30000
+ClearPrice: 30000
+DisposePrice: 30000
+ResetPrice: 30000
+ClonePrice: 30000
+...

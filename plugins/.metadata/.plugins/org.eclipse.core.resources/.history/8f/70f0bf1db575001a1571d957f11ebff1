@@ -1,0 +1,27 @@
+<?php 
+
+namespace laxer\timerank;
+
+use pocketmine\scheduler\Task;
+use pocketmine\Player;
+use laxer\Core;
+use laxer\player\PlayerData;
+
+class PlayerTimeTask extends Task {
+    
+    private $pd;
+    
+    public function __construct(PlayerData $pd){
+        $this->pd = $pd;
+    }
+    
+    public function onRun(int $currentTick){
+        $pd = new PlayerData($this->p->getName());
+        $time = (int) $pd->get('join_time');
+        $time++;
+        $pd->set('time', $time);
+        
+        // Time Rank
+    }
+   
+}

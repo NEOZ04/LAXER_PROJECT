@@ -1,0 +1,26 @@
+<?php 
+
+namespace laxer\proshop;
+
+use pocketmine\Player;
+use pocketmine\utils\Config;
+use laxer\Core;
+
+class ProShop {
+    
+    private function getConfig(){
+        return new Config(Core::getInstance()->getDataFolder().'shop/ProShop.json', Config::JSON);
+    }
+    
+    private function getCategory(){
+        $data = $conf->getAll();
+        $categories = [];
+        foreach ($data as $c => $v) $categories[] = $c; 
+        return $categories;
+    }
+    
+    public function getMainForm(Player $p){
+        
+    }
+    
+}

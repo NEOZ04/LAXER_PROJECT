@@ -1,0 +1,103 @@
+<?php 
+
+namespace laxer\pshop;
+
+use pocketmine\event\Listener;
+use pocketmine\event\player\PlayerInteractEvent;
+use pocketmine\tile\Chest;
+use laxer\Core;
+use laxer\ui\CoreUI;
+use pocketmine\event\block\BlockBreakEvent;
+use pocketmine\tile\Sign;
+use pocketmine\event\player\PlayerJoinEvent;
+
+class PShopListener implements Listener {
+    
+    public function onInteract(PlayerInteractEvent $e){
+        $p = $e->getPlayer();
+        $b = $e->getBlock();
+        $t = $b->level->getTile($b->asPosition());
+        $ps = Core::getInstance()->getPShop();
+        if ($t instanceof Chest) {
+            if ($ps->isChestShop($t)){
+                $shop = $ps->getShopByChest($t);
+                if (!($shop->isOwner($p) || $shop->isHelper($p->getName()))){
+                    $e->setCancelled();
+                    $p->sendMessage(CoreUI::Warning('Peti ini sudah dimiliki oleh '.$shop->getOwner().' shop.'));
+                    return true;
+                }else {
+                    
+                }
+            }
+        }
+        if ($t instanceof Sign){
+            if (($shop = $ps->getShopBySign($t)) !== null){
+                $ui = new ShopUI($shop);
+                $data = $shop->getDataItemBySign($t);
+                $ui->getMainForm($p, $data);
+                return true;
+            }
+        }
+        if (isset(Core::$_SESSIONS[$p->getName()]['setChest'])){
+            $action = Core::$_SESSIONS[$p->getName()]['setChest'];
+            if ($t instanceof Chest){
+                if (!$ps->isChestShop($t)){
+                    if (time() - $action['time'] < 15){
+                        $shop = $action['shop'];
+                        if ($shop instanceof Shop){
+                            $shop->setChestShop($t);
+                            $p->sendMessage(CoreUI::Success('Chest berhasil di set sebagai Chest Shop'));
+                            return true;
+                        }
+                    }
+                    $p->sendMessage(CoreUI::Danger('Waktu telah berakhir'));
+                    return false;
+                }
+                $p->sendMessage(CoreUI::Danger('Chest ini sudah di set menjadi Chest Shop'));
+                return false;
+            }
+            return false;
+        }
+    }
+    
+    public function onBreak(BlockBreakEvent $e){
+        $p = $e->getPlayer();
+        $b = $e->getBlock();
+        $t = $b->level->getTile($b->asPosition());
+        $ps = Core::getInstance()->getPShop();
+        if ($t instanceof Chest) {
+            if ($ps->isChestShop($t)){
+                $shop = $ps->getShopByChest($t);
+                if (!($shop->isOwner($p) || $shop->isHelper($p->getName()))){
+                    $e->setCancelled();
+                    $p->sendMessage(CoreUI::Warning('Peti ini sudah dimiliki oleh '.$shop->getOwner().' shop.'));
+                    return true;
+                }else {
+                    $shop->unsetChestShop($t);
+                    $p->sendMessage(CoreUI::Warning('ChestShop berhasil di hapus'));
+                    return true;
+                }
+            }   
+        }
+        
+        if ($t instanceof Sign){
+            if (($shop = $ps->getShopBySign($t)) !== null){
+                if (!($shop->isOwner($p) || $shop->isHelper($p->getName()))){
+                    $e->setCancelled();
+                    $p->sendMessage(CoreUI::Warning('Sign ini sudah dimiliki oleh '.$shop->getOwner().' shop.'));
+                    return true;
+                }else {
+                    $shop->unsetSign($t);
+                    $p->sendMessage(CoreUI::Warning('Sign berhasil di hapus'));
+                    return true;
+                }
+            }
+        }
+    }
+    
+    public function onJoin(PlayerJoinEvent $e){
+        $p = $e->getPlayer();
+        Core::getInstance()->getPShop()->createShop($p);
+    }
+    
+}

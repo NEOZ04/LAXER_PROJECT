@@ -1,0 +1,31 @@
+<?php 
+
+namespace laxer\player;
+
+use _64FF00\PurePerms\PurePerms;
+use laxer\Core;
+
+class PlayerRank {
+    
+    private $api;
+    
+    public function __construct(){
+        $plugin = Core::getInstance()->getServer()->getPluginManager()->getPlugin('PurePerms');
+        if ($plugin instanceof PurePerms) {
+            $this->api = $plugin->getUserDataMgr();
+        }
+    }
+    
+    public function getRank(String $name){
+        $p = Core::getInstance()->getServer()->getPlayer($name);
+        if (is_null($p)){
+            $p = Core::getInstance()->getServer()->getOfflinePlayer($name);
+        }
+        return $this->api->getGroup($p);
+    }
+    
+    public function setRank(String $name, String $rank){
+        $this->api->setGroup($name, $rank, []);
+    }
+    
+}

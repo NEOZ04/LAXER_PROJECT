@@ -1,0 +1,17 @@
+<?php 
+
+namespace laxer\pshop;
+
+use pocketmine\Player;
+
+class PShop {
+    
+    public function createShop(){
+        
+    }
+    
+    public function getShop(Player $p){
+        
+    }
+    
+}

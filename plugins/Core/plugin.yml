@@ -1,0 +1,9 @@
+---
+name: Core
+main: laxer\Core
+author: NEOZ04
+version: 1.2.422
+api:
+- 3.0.0
+- 4.0.0
+...

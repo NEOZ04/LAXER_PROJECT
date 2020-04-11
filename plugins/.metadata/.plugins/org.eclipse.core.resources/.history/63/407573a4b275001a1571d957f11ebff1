@@ -1,0 +1,11 @@
+<?php 
+
+namespace laxer\timerank;
+
+class TimeRank {
+    
+    public function getRanks(){
+        
+    }
+    
+}

@@ -1,0 +1,24 @@
+<?php 
+
+namespace laxer\timerank;
+
+use pocketmine\utils\Config;
+use laxer\Core;
+
+class TimeRank {
+    
+    private function getConfig(){
+        return new Config(Core::getInstance()->getDataFolder().'TimeRankConfig.json', Config::JSON);
+    }
+    
+    public static function getAll(){
+        $conf = $this->getConfig();
+        $data = $conf->getAll();
+        $times = [];
+        foreach ($data as $rank => $time){
+            $times[$time] = $rank;
+        }
+        return $times;
+    }
+    
+}

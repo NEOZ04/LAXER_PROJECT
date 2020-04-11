@@ -1,0 +1,16 @@
+<?php 
+
+namespace laxer\pet\pets;
+
+use pocketmine\entity\Animal;
+
+class Cow extends Animal {
+    
+    public function __construct(){
+        
+    }
+    public function getName(): string
+    {}
+
+    
+}

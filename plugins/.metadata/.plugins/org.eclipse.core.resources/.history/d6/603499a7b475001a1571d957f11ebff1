@@ -1,0 +1,15 @@
+<?php 
+
+namespace laxer\player;
+
+use pocketmine\event\Listener;
+use pocketmine\event\player\PlayerJoinEvent;
+
+class PlayerListener implements Listener {
+    
+    public function onJoin(PlayerJoinEvent $e){
+        $p = $e->getPlayer();
+        $pd = new PlayerData($p->getName());
+    }
+    
+}

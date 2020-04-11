@@ -1,0 +1,55 @@
+<?php 
+
+namespace laxer\proshop;
+
+use pocketmine\Player;
+use pocketmine\utils\Config;
+use laxer\Core;
+use laxer\ui\CoreUI;
+
+class ProShop {
+    
+    private function getConfig(){
+        return new Config(Core::getInstance()->getDataFolder().'shop/ProShop.json', Config::JSON);
+    }
+    
+    private function getCategories(){
+        $data = $this->getConfig()->getAll();
+        $categories = [];
+        foreach ($data as $c => $v) $categories[] = $c; 
+        return $categories;
+    }
+    
+    private function getItems(string $category){
+        return $this->getConfig()->get($category);
+    }
+    
+    public function getMainForm(Player $p){
+        $ui = CoreUI::Simple(function(Player $p, $data){
+            if ($data === null) return false;
+            $category = $this->getCategories()[$data];
+            
+        });
+        $ui->setTitle(CoreUI::fTitle('PRO SHOP'));
+        $btns = $this->getCategories();
+        foreach ($btns as $text){
+            $ui->addButton(CoreUI::fButton($text));
+        }
+        $ui->sendToPlayer($p);
+    }
+    
+    public function getMainForm(Player $p){
+        $ui = CoreUI::Simple(function(Player $p, $data){
+            if ($data === null) return false;
+            $category = $this->getCategories()[$data];
+            
+        });
+            $ui->setTitle(CoreUI::fTitle('PRO SHOP'));
+            $btns = $this->getCategories();
+            foreach ($btns as $text){
+                $ui->addButton(CoreUI::fButton($text));
+            }
+            $ui->sendToPlayer($p);
+    }
+    
+}

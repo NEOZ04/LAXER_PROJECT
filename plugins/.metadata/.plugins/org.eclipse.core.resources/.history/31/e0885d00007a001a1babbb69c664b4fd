@@ -1,0 +1,22 @@
+<?php 
+
+namespace laxer\proshop;
+
+use pocketmine\Player;
+use pocketmine\utils\Config;
+use laxer\Core;
+
+class ProShop {
+    
+    private function getButtons(){
+        $conf = new Config(Core::getInstance()->getDataFolder().'shop/ProShop.json', Config::JSON);
+        
+        $data = $conf->getAll();
+        
+    }
+    
+    public function getMainForm(Player $p){
+        
+    }
+    
+}

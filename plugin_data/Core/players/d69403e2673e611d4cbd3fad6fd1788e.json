@@ -1,0 +1,15 @@
+{
+    "name": "Steve",
+    "level": 0,
+    "points": 0,
+    "money": 999999999,
+    "friends": [],
+    "jobs": [],
+    "keys": [
+        0,
+        0,
+        0,
+        0
+    ],
+    "join_time": 5241
+}

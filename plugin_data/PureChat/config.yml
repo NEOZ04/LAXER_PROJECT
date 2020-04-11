@@ -1,0 +1,32 @@
+---
+version: 1.4.10-6
+default-factions-plugin: Laxer-Guild
+enable-multiworld-chat: false
+groups:
+  Guest:
+    chat: '§e•-> §fGUEST§e <-• &f{display_name} §e: §7{msg}.'
+    nametag: '&e[•&f{fac_name}&e•] &f{display_name}'
+    worlds: []
+  Junior:
+    chat: '§e•-> §cJUNIOR§e <-• &f{display_name} §e: §7{msg}.'
+    nametag: '&e[•&f{fac_name}&e•] &f{display_name}'
+    worlds: []
+  Veteran:
+    chat: '§e•-> §2VETERAN§e <-• &f{display_name} §e: §7{msg}.'
+    nametag: '&e[•&f{fac_name}&e•] &f{display_name}'
+  Knight:
+    chat: '§e•-> §eKNI&fGHT§e <-• &f{display_name} §e: §7{msg}.'
+    nametag: '&e[•&f{fac_name}&e•] &f{display_name}'
+  Master:
+    chat: '§e•-> §aMAS&fTER§e <-• &f{display_name} §e: §7{msg}.'
+    nametag: '&e[•&f{fac_name}&e•] &f{display_name}'
+    worlds: []
+  Pro:
+    chat: '§e•-> §bPRO§e <-• &f{display_name} §e: §7{msg}.'
+    nametag: '&e[•&f{fac_name}&e•] &f{display_name}'
+    worlds: []
+  Admin:
+    chat: '§e•-> §8ADMIN§e <-• &f{display_name} §e: §7{msg}.'
+    nametag: '&e[•&f{fac_name}&e•] &f{display_name}'
+    worlds: []
+...

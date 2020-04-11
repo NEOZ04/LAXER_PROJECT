@@ -1,0 +1,64 @@
+<?php 
+
+namespace laxer\crate;
+
+use pocketmine\event\Listener;
+use pocketmine\event\player\PlayerInteractEvent;
+use pocketmine\tile\EnderChest;
+use laxer\Core;
+use pocketmine\event\block\BlockBreakEvent;
+use pocketmine\inventory\ChestInventory;
+use pocketmine\block\Block;
+use pocketmine\tile\Chest;
+use pocketmine\tile\Tile;
+use laxer\libs\muqsit\invmenu\InvMenu;
+use laxer\ui\CoreUI;
+
+class CrateListener implements Listener {
+    
+    
+    public function onInteract(PlayerInteractEvent $e){
+        $p = $e->getPlayer();
+        $i = $e->getItem();
+        $b = $e->getBlock();
+        $t = $b->level->getTile($b->asPosition());
+        
+        if ($t instanceof EnderChest){
+            if ($p->isOp()) {
+                if ($i->getId() === 399) {
+                    if (!Core::getInstance()->getCrate()->isCrate($t->asPosition())){
+                        $e->setCancelled();
+                        
+                        $ui = new CrateUI();
+                        $ui->getMainForm($p, $t);
+                        Core::getInstance()->getCrate()->loadCrates();
+                        return true;
+                    }
+                }
+            }
+            $e->setCancelled();
+            $success = Core::getInstance()->getCrate()->OpenCrate($p,$t->asPosition());
+            if ($success){
+                Core::getInstance()->getCrate()->loadCrates();
+            }else {
+                $p->sendMessage(CoreUI::Danger('Anda tidak memiliki key'));
+            }
+            return true;
+        }
+    }
+    
+    public function onBreak(BlockBreakEvent $e){
+        $p = $e->getPlayer();
+        $b = $e->getBlock();
+        $t = $b->level->getTile($b->asPosition());
+        if ($t instanceof EnderChest){
+            if ($p->isOp()){
+                Core::getInstance()->getCrate()->unsetCrate($t->asPosition());
+                Core::getInstance()->getCrate()->loadCrates();
+                $p->sendMessage('Crate telah dihapus');
+                return true;
+            }
+        }
+    }
+    
+}

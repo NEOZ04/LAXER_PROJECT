@@ -1,0 +1,36 @@
+<?php 
+
+namespace laxer\pet;
+
+use pocketmine\Player;
+use laxer\ui\CoreUI;
+
+class PetUI {
+    
+    private function getButtons(){
+        $btns = [
+            "My Pets", "Pet Shop"
+        ];
+        
+        return $btns;
+    }
+    
+    public function getMainForm(Player $p){
+        $ui = CoreUI::Simple(function (Player $p, $data){
+           if ($data === null) return false;
+           $btn = $this->getButtons()[$data];
+           switch (strtolower($btn)){
+               case 'my pets':
+                   break;
+               case 'pet shop':
+                   break;
+           }
+        });
+        $ui->setTitle(CoreUI::fTitle('PET'));
+        foreach ($this->getButtons() as $text){
+            $ui->addButton(CoreUI::fButton($text));
+        }
+        $ui->sendToPlayer($p);
+    }
+    
+}

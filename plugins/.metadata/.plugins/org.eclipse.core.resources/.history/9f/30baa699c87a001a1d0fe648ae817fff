@@ -1,0 +1,17 @@
+<?php 
+
+namespace laxer\pet;
+
+use pocketmine\Player;
+use laxer\ui\CoreUI;
+
+class PetUI {
+    
+    public function getMainForm(Player $p){
+        $ui = CoreUI::Simple(function (Player $p, $data){
+           if ($data === null) return false; 
+        });
+        $ui->setTitle(CoreUI::fTitle('PET'));
+    }
+    
+}

@@ -1,0 +1,27 @@
+<?php 
+
+namespace laxer\pshop;
+
+use pocketmine\Player;
+use pocketmine\IPlayer;
+use laxer\Core;
+
+class PShop {
+    
+    
+    
+    public function createShop(){
+        
+    }
+    
+    public function getShop(String $name){
+        
+    }
+    
+    public function hasCreated(String $name){
+        $hashname = hash('md5', $name);
+        $filepath = Core::getInstance()->getDataFolder()."shops/".$hashname.".json";
+        return file_exists($filepath));
+    }
+    
+}

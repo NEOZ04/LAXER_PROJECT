@@ -1,0 +1,31 @@
+<?php 
+
+namespace laxer\pshop;
+
+use pocketmine\event\Listener;
+use pocketmine\event\player\PlayerInteractEvent;
+use pocketmine\tile\Chest;
+use laxer\Core;
+use laxer\ui\CoreUI;
+
+class PShopListener implements Listener {
+    
+    public function onInteract(PlayerInteractEvent $e){
+        $p = $e->getPlayer();
+        $b = $e->getBlock();
+        $t = $b->level->getTile($b->asPosition());
+        $ps = Core::getInstance()->getPShop();
+        if ($t instanceof Chest) {
+            if ($ps->isChestShop($t)){
+                $shop = $ps->getShopByChest($t);
+                if (!($shop->isOwner($p) || $shop->isHelper($p->getName()))){
+                    $e->setCancelled();
+                    $p->sendMessage(CoreUI::Warning('This chest already by '.$shop->getOwner().' shop.'));
+                    return true;
+                }
+            }
+        }
+        
+    }
+    
+}

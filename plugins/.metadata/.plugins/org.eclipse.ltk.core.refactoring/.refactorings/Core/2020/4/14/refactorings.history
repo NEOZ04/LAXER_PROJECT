@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;Core/src/laxer/shop/ShopListener&apos; to &apos;ShopListener.php&apos;" description="Rename resource &apos;ShopListener&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="src/laxer/shop/ShopListener" name="ShopListener.php" stamp="1585752986185" updateReferences="true"/>
+</session>

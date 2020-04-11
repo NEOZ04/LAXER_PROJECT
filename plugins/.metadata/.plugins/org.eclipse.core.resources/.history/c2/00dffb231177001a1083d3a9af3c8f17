@@ -1,0 +1,52 @@
+<?php 
+
+namespace laxer\pshop;
+
+use pocketmine\event\Listener;
+use pocketmine\event\player\PlayerInteractEvent;
+use pocketmine\tile\Chest;
+use laxer\Core;
+use laxer\ui\CoreUI;
+use pocketmine\event\block\BlockBreakEvent;
+
+class PShopListener implements Listener {
+    
+    public function onInteract(PlayerInteractEvent $e){
+        $p = $e->getPlayer();
+        $b = $e->getBlock();
+        $t = $b->level->getTile($b->asPosition());
+        $ps = Core::getInstance()->getPShop();
+        if ($t instanceof Chest) {
+            if ($ps->isChestShop($t)){
+                $shop = $ps->getShopByChest($t);
+                if (!($shop->isOwner($p) || $shop->isHelper($p->getName()))){
+                    $e->setCancelled();
+                    $p->sendMessage(CoreUI::Warning('Peti ini sudah dimiliki owleh '.$shop->getOwner().' shop.'));
+                    return true;
+                }
+            }
+        }
+    }
+    
+    public function onBreak(BlockBreakEvent $e){
+        $p = $e->getPlayer();
+        $b = $e->getBlock();
+        $t = $b->level->getTile($b->asPosition());
+        $ps = Core::getInstance()->getPShop();
+        if ($t instanceof Chest) {
+            if ($ps->isChestShop($t)){
+                $shop = $ps->getShopByChest($t);
+                if (!($shop->isOwner($p) || $shop->isHelper($p->getName()))){
+                    $e->setCancelled();
+                    $p->sendMessage(CoreUI::Warning('Peti ini sudah dimiliki oleh '.$shop->getOwner().' shop.'));
+                    return true;
+                }else {
+                    $shop->unsetChestShop($t);
+                    $p->sendMessage(CoreUI::Warning('ChestShop berhasil di hapus'));
+                    return true;
+                }
+            }
+        }
+    }
+    
+}

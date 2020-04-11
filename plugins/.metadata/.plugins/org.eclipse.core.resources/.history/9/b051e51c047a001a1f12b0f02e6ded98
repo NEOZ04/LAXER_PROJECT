@@ -1,0 +1,82 @@
+<?php 
+
+namespace laxer\proshop;
+
+use pocketmine\Player;
+use pocketmine\utils\Config;
+use laxer\Core;
+use laxer\ui\CoreUI;
+use pocketmine\utils\TextFormat;
+use pocketmine\item\Item;
+
+class ProShop {
+    
+    private $category = null;
+    private $item = null;
+    
+    private function getDefault(){
+        $data = [
+            "Foods" => [],
+            "Weapons" => [],
+            "Block" => [],
+            "Armors" => [],
+        ];
+        return $data;
+    }
+    
+    private function getConfig(){
+        return new Config(Core::getInstance()->getDataFolder().'shop/ProShop.json', Config::JSON, $this->getDefault());
+    }
+    
+    private function getCategories(){
+        $data = $this->getConfig()->getAll();
+        $categories = [];
+        foreach ($data as $c => $v) $categories[] = $c; 
+        return $categories;
+    }
+    
+    private function getItems(string $category){
+        return $this->getConfig()->get($category);
+    }
+    
+    public function getMainForm(Player $p){
+        $ui = CoreUI::Simple(function(Player $p, $data){
+            if ($data === null) return false;
+            $this->category = $this->getCategories()[$data];
+            $this->getItemsForm($p);
+        });
+        $ui->setTitle(CoreUI::fTitle('PRO SHOP'));
+        $btns = $this->getCategories();
+        foreach ($btns as $text){
+            $ui->addButton(CoreUI::fButton($text));
+        }
+        $ui->sendToPlayer($p);
+    }
+    
+    public function getItemsForm(Player $p){
+        $ui = CoreUI::Simple(function(Player $p, $data){
+            if ($data === null) return false;
+            $this->item = $this->getItems($this->category)[$data];
+        });
+        $ui->setTitle(CoreUI::fTitle('PRO SHOP'));
+        $btns = $this->getItems($this->category);
+        foreach ($btns as $v){
+            $item = Item::get($v[0], $v[1]);
+            $ui->addButton(CoreUI::fButton($item->getName()));
+        }
+        $ui->sendToPlayer($p);
+    }
+    
+    public function getConfirmForm(Player $p){
+        $ui = CoreUI::Custom(function (Player $p, $data){
+            if ($data === null) return false;
+        });
+        $item = Item::get($this->item[0], $this->item[1]);
+        $price = $this->item[2];
+        $ui->setTitle(CoreUI::fTitle('PRO SHOP'));
+        $ui->addSlider(TextFormat::colorize('&l&f•> Jumlah'), 1,$item->getMaxStackSize());
+        $ui->addLabel(TextFormat::colorize('&l&f•> Price: '.$price));
+        $ui->sendToPlayer($p);
+    }
+    
+}

@@ -1,0 +1,11 @@
+<?php 
+
+namespace laxer\world; 
+
+class W {
+    
+    public function start(){
+        
+    }
+    
+}

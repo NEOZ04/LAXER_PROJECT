@@ -1,0 +1,14 @@
+<?php 
+
+namespace laxer\timerank;
+
+use pocketmine\scheduler\Task;
+
+class TimeRankTask extends Task {
+    
+    public function onRun(int $currentTick){
+        
+    }
+
+    
+}

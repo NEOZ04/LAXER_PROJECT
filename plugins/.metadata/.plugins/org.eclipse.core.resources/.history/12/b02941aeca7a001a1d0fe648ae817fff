@@ -1,0 +1,26 @@
+<?php 
+
+namespace laxer\pet;
+
+use pocketmine\Player;
+
+class Pet {
+    
+    private function getConfig(){
+        
+    }
+    
+    public function getPets(){
+        
+    }
+    public function getPlayerPets(string $name){
+        
+    }
+    public function getSpawningPet(Player $p){
+        
+    }
+    public function addPet(string $name, string $type){
+        
+    }
+    
+}

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
+		<item key="selection" value="spawn"/>
+		<item key="wrap" value="true"/>
+		<item key="casesensitive" value="false"/>
+		<item key="wholeword" value="false"/>
+		<item key="incremental" value="false"/>
+		<item key="isRegEx" value="false"/>
+		<list key="findhistory">
+			<item value="Spawn"/>
+			<item value="Command"/>
+			<item value="-&gt;setTitle"/>
+			<item value="&quot;XPILOW PET MENU §6[§r1§f/§r2§6]&quot;"/>
+			<item value="$this-&gt;getServer()"/>
+			<item value="event"/>
+			<item value="inventory_close_listener"/>
+			<item value="setSign"/>
+			<item value="Chest"/>
+			<item value="setBlock"/>
+			<item value="JackMD\MysteryCrate\"/>
+			<item value="holder"/>
+			<item value="self::"/>
+		</list>
+		<list key="replacehistory">
+			<item value="Core::getInstance()-&gt;getServer()"/>
+			<item value=""/>
+			<item value="laxer\"/>
+			<item value="$this-&gt;"/>
+		</list>
+	</section>
+	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
+		<item key="DIALOG_X_ORIGIN" value="906"/>
+		<item key="DIALOG_Y_ORIGIN" value="396"/>
+		<item key="DIALOG_WIDTH" value="348"/>
+		<item key="DIALOG_HEIGHT" value="440"/>
+		<item key="DIALOG_FONT_NAME" value="1|Ubuntu|11.0|0|GTK|1|"/>
+	</section>
+</section>

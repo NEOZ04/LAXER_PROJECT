@@ -1,0 +1,61 @@
+---
+Guest:
+  alias: gst
+  isDefault: true
+  inheritance: []
+  permissions:
+  - pchat.colored.nametag
+  worlds: []
+Admin:
+  alias: adm
+  inheritance: []
+  permissions: []
+  worlds: []
+Pro:
+  alias: pro
+  isDefault: false
+  inheritance:
+  - Master
+  permissions:
+  - laxer.platinum.free
+  - laxer.pro.shop
+  worlds: []
+Master:
+  alias: mst
+  isDefault: false
+  inheritance:
+  - Knight
+  permissions:
+  - laxer.fly
+  - laxer.regular.free
+  worlds: []
+Knight:
+  alias: kng
+  isDefault: false
+  inheritance:
+  - Veteran
+  permissions:
+  - laxer.general.free
+  - laxer.pets
+  - pchat.colored.format
+  worlds: []
+Veteran:
+  alias: vtr
+  isDefault: false
+  inheritance:
+  - Junior
+  permissions:
+  - laxer.guild.create
+  - laxer.teleport
+  worlds: []
+Junior:
+  alias: jr
+  isDefault: false
+  inheritance:
+  - Guest
+  permissions:
+  - laxer.guild
+  - laxer.pshop
+  - myplot.command.claim
+  worlds: []
+...
