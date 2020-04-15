@@ -1,0 +1,7 @@
+<?php 
+
+namespace laxer\cmds\home;
+
+class UnsetHomeCommand {
+    
+}

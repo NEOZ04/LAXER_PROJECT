@@ -14,6 +14,7 @@ class PlayerListener implements Listener {
         $pd = new PlayerData($p->getName());
         $pd->addAttribute('first_join', time());
         $pd->addAttribute('last_join', time());
+        $pd->addAttribute('homes', []);
         $task = Core::getInstance()->getScheduler()->scheduleRepeatingTask(new PlayerTimeTask($p), 20);
         Core::$_SESSIONS['player_time'][$p->getName()] = $task; 
     }

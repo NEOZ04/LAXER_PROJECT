@@ -1,0 +1,61 @@
+<?php 
+
+namespace laxer\cmds\home;
+
+use pocketmine\command\Command;
+use pocketmine\command\CommandSender;
+use pocketmine\Player;
+use laxer\Core;
+use laxer\ui\CoreUI;
+use laxer\home\Home;
+use pocketmine\utils\TextFormat;
+
+class GetHomeCommand extends Command {
+    
+    public function execute(CommandSender $sender, string $commandLabel, array $args)
+    {
+        if ($sender instanceof Player) {
+            
+            $homes = Home::getHomes($sender);
+            if (empty($homes)){
+                $sender->sendMessage(CoreUI::Danger('Tidak ada home.'));
+                return true;
+            }
+            $sender->sendMessage(CoreUI::Notice('Your homes:',''));
+            foreach (Core::getInstance()->getServer()->getLevels() as $level){
+                var_dump($level->id);
+            }
+            var_dump('a');
+            foreach ($homes as $home){
+                $name = $home[0];
+                $level = $home[1]->level;
+                $pos = $home[1];
+                var_dump($pos->level->getId());
+//                 $sender->sendMessage(CoreUI::translate('&b•> &f'.ucfirst($name).': &r&7'
+//                     .$this->levelName($level->getName()).', '.$pos->x.'-'.$pos->y.'-'.$pos->z));
+            }
+            
+        }else {
+            Core::getInstance()->getLogger()->critical('Use this command in game.');
+        }
+        return true;
+    }
+    
+    private function levelName($name){
+        switch (strtolower($name)){
+            case 'survival':
+                return 'Survival World';
+                break;
+            case 'flat':
+                return 'Flat World';
+                break;
+            case 'plot':
+                return 'Plots World';
+                break;
+            case 'world':
+                return 'Spawn World';
+                break;
+        }
+    }
+    
+}

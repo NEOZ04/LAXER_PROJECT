@@ -15,6 +15,10 @@ class CoreUI {
         //
     }
     
+    public static function translate(String $string){
+        return TextFormat::colorize($string);
+    }
+    
     public static function FPShopSign(Shop $shop, $item_name){
         $name = $shop->getName();
         $stock = $shop->getCountItem($item_name);
@@ -28,17 +32,17 @@ class CoreUI {
         return $data;
     }
     
-    public static  function Notice($text){
-        return TextFormat::colorize('&b[• &fINFO&b •]&7 '.$text.'.');
+    public static  function Notice($text, $last = '.'){
+        return TextFormat::colorize('&b[• &fINFO&b •]&7 '.$text.$last);
     }
-    public static function Success($text){
-        return TextFormat::colorize('&a[• &fINFO&a •]&7 '.$text.'.');
+    public static function Success($text, $last = '.'){
+        return TextFormat::colorize('&a[• &fINFO&a •]&7 '.$text.$last);
     }
-    public static function Danger($text){
-        return TextFormat::colorize('&c[• &fINFO&c •]&7 '.$text.'.');
+    public static function Danger($text, $last = '.'){
+        return TextFormat::colorize('&c[• &fINFO&c •]&7 '.$text.$last);
     }
-    public static function Warning($text){
-        return TextFormat::colorize('&e[• &fINFO&e •]&7 '.$text.'.');
+    public static function Warning($text, $last = '.'){
+        return TextFormat::colorize('&e[• &fINFO&e •]&7 '.$text.$last);
     }
     
     public static function fTitle($text){

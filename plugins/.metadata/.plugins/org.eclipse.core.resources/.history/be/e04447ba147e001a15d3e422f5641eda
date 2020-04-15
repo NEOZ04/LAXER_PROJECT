@@ -1,0 +1,36 @@
+<?php 
+
+namespace laxer\cmds\home;
+
+use pocketmine\command\Command;
+use pocketmine\command\CommandSender;
+use pocketmine\Player;
+use laxer\Core;
+use laxer\ui\CoreUI;
+use laxer\home\Home;
+use pocketmine\utils\TextFormat;
+
+class GetHomeCommand extends Command {
+    
+    public function execute(CommandSender $sender, string $commandLabel, array $args)
+    {
+        if ($sender instanceof Player) {
+            
+            $homes = Home::getHomes($sender);
+            if (empty($homes)){
+                $sender->sendMessage(CoreUI::Danger('Tidak ada home.'));
+                return true;
+            }
+            $sender->sendMessage(CoreUI::Notice('Your homes:',''));
+            foreach ($homes as $home){
+                $name = $home[0];
+                $sender->sendMessage(CoreUI::translate('&b•> &f'.$name));
+            }
+            
+        }else {
+            Core::getInstance()->getLogger()->critical('Use this command in game.');
+        }
+        return true;
+    }
+    
+}

@@ -1,0 +1,36 @@
+<?php 
+
+namespace laxer\home;
+
+use pocketmine\level\Position;
+use pocketmine\Player;
+use laxer\player\PlayerData;
+
+class Home {
+    
+    public function setHome(Player $p, String $name, Position $pos){
+        $pd = new PlayerData($p->getName());
+        $homes = $pd->get('homes');
+        $homes[strtolower($name)] = [
+            $pos->x,$pos->y,$pos->z,$pos->level->getId()
+        ];  
+        $pd->set('homes', $homes);
+        return true;
+    }
+    
+    public function unsetHome(Player $p, String $name){
+        $pd = new PlayerData($p->getName());
+        $homes = $pd->get('homes');
+        unset($homes[strtolower($name)]);
+        $pd->set('homes', $homes);
+        return true;
+    }
+    
+    public function issetHome(Player $p, String $name){
+        $pd = new PlayerData($p->getName());
+        $homes = $pd->get('homes');
+        return isset($homes[strtolower($name)]);
+    }
+    
+    
+}

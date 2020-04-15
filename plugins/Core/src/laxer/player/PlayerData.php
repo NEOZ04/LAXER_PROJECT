@@ -23,6 +23,9 @@ Class PlayerData {
                 'jobs' => [],
                 'keys' => [0,0,0,0],
                 'join_time' => 0,
+                'first_join' => time(),
+                'last_join' => time(),
+                'homes' => [],
             ];
             foreach ($data as $k => $v){
                 $conf->set($k,$v);

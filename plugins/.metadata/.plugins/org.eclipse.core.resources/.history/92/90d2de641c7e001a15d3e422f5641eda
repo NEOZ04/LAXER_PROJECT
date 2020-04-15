@@ -1,0 +1,7 @@
+<?php 
+
+namespace laxer\cmds;
+
+class HealCommand extends Commands {
+    
+}

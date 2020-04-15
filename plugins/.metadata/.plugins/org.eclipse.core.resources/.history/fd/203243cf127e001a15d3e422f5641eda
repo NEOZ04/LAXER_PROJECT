@@ -1,0 +1,62 @@
+<?php 
+
+namespace laxer\home;
+
+use pocketmine\level\Position;
+use pocketmine\Player;
+use laxer\player\PlayerData;
+use laxer\Core;
+
+class Home {
+    
+    public static  function setHome(Player $p, String $name, Position $pos){
+        $pd = new PlayerData($p->getName());
+        $homes = $pd->get('homes');
+        $homes[strtolower($name)] = [
+            $pos->x,$pos->y,$pos->z,$pos->level->getId()
+        ];  
+        $pd->set('homes', $homes);
+        return true;
+    }
+    
+    public static function unsetHome(Player $p, String $name){
+        $pd = new PlayerData($p->getName());
+        $homes = $pd->get('homes');
+        if (self::issetHome($p, $name)){
+            unset($homes[strtolower($name)]);
+            $pd->set('homes', $homes);
+            return true;
+        }
+        return false;
+    }
+    
+    public static  function issetHome(Player $p, String $name){
+        $pd = new PlayerData($p->getName());
+        $homes = $pd->get('homes');
+        return isset($homes[strtolower($name)]);
+    }
+    
+    public static  function getPos(Player $p, String $name){
+        $pd = new PlayerData($p->getName());
+        $homes = $pd->get('homes');
+        if (self::issetHome($p, $name)){
+            $home = $homes[$name];
+            $level = Core::getInstance()->getServer()->getLevel($home[3]);
+            return new Position($home[0],$home[1],$home[2],$level);
+        }
+        return false;
+    }
+    
+    public static function getHomes(Player $p){
+        $pd = new PlayerData($p->getName());
+        $homes = $pd->get('homes');
+        $rows = [];
+        foreach ($homes as $name => $v){
+            $level = Core::getInstance()->getServer()->getLevel($home[3]);
+            $pos = new Position($home[0],$home[1],$home[2],$level);
+            $rows[] = [$name, $pos];
+        }
+        return $rows;
+    }
+    
+}

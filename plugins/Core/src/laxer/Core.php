@@ -17,6 +17,12 @@ use laxer\world\WorldManager;
 use laxer\cmds\FlyCommand;
 use laxer\cmds\TeleportCommand;
 use laxer\pet\Pet;
+use laxer\cmds\FeedCommand;
+use laxer\cmds\home\HomeCommand;
+use laxer\cmds\home\SetHomeCommand;
+use laxer\cmds\home\GetHomeCommand;
+use laxer\cmds\home\UnsetHomeCommand;
+use laxer\cmds\HealCommand;
 
 class Core extends PluginBase {
     
@@ -72,11 +78,21 @@ class Core extends PluginBase {
         $this->mypet = new Pet();
         $this->worldmanager = new WorldManager();
         
+        $levels = ['survival','plots','flat'];
+        foreach ($levels as $name){
+            $this->getServer()->loadLevel($name);
+        }
+        
         // Register Commands
         $this->getServer()->getCommandMap()->register('Spawn', new SpawnCommand('spawn', 'back to spawn', 'spawn', ['hub']));
         $this->getServer()->getCommandMap()->register('Fly', new FlyCommand('fly', 'Allow to flight', 'fly', []));
+        $this->getServer()->getCommandMap()->register('Feed', new FeedCommand('feed', 'Fill a food', 'feed', []));
+        $this->getServer()->getCommandMap()->register('Heal', new HealCommand('heal', 'Fill a health', 'heal', []));
+        $this->getServer()->getCommandMap()->register('SetHome', new SetHomeCommand('sethome', 'Set new home position', 'sethome', []));
+        $this->getServer()->getCommandMap()->register('Home', new HomeCommand('home', 'Teleport to home', 'home', []));
+        $this->getServer()->getCommandMap()->register('UnsetHome', new UnsetHomeCommand('unsethome', 'Unset to home', 'unsethome', []));
+        $this->getServer()->getCommandMap()->register('Homes', new GetHomeCommand('homes', 'Get all homes', 'homes', []));
         $this->getServer()->getCommandMap()->register('Teleport Player', new TeleportCommand('tpa', 'Teleport', 'tpa <target_name> [on_your_pos:bool]', []));
-        
         $this->shop->loadSigns();
         $this->crate->loadCrates();
         $this->pshop->loadSigns();

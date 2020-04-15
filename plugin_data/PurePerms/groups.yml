@@ -27,6 +27,8 @@ Master:
   - Knight
   permissions:
   - laxer.fly
+  - laxer.home
+  - laxer.pets
   - laxer.regular.free
   worlds: []
 Knight:
@@ -35,8 +37,9 @@ Knight:
   inheritance:
   - Veteran
   permissions:
+  - laxer.feed
   - laxer.general.free
-  - laxer.pets
+  - laxer.heal
   - pchat.colored.format
   worlds: []
 Veteran:

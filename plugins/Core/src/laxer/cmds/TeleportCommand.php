@@ -10,9 +10,18 @@ use laxer\ui\CoreUI;
 
 class TeleportCommand extends Command {
     
+    public function __construct(String $name = '', String $description = '', String $usage = '', Array $alias = []){
+        parent::__construct($name, $description, $usage, $alias);
+        $this->setPermission('laxer.teleport');
+    }
+    
     public function execute(CommandSender $sender, string $commandLabel, array $args)
     {
         if ($sender instanceof Player) {
+            if (!$sender->hasPermission('laxer.teleport')){
+                $sender->sendMessage(CoreUI::Danger('Anda tidak memiliki izin untuk menggunakan perintah ini'));
+                return true;
+            }
             if ($sender->hasPermission('laxer.teleport')){
                 if (isset($args[0])){
                     $name = $args[0];
