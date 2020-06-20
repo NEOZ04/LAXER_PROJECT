@@ -1,0 +1,23 @@
+<?php 
+
+namespace laxer\pvp;
+
+use pocketmine\Player;
+
+class ovso {
+    
+    private $arena = null;
+    
+    public function __construct(Arena $arena){
+        $this->arena = $arena;
+    }
+    
+    public function Match(Player $p){
+        if (!$this->arena->isFull()){
+            $this->arena->Join($p);
+            return true;
+        }
+        $this->arena->start();
+    }
+    
+}

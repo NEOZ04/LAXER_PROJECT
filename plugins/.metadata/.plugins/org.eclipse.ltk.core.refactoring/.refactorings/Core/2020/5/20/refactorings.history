@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;Core/src/laxer/worldprotect/worldprotect&apos; to &apos;worldprotect.php&apos;" description="Rename resource &apos;worldprotect&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="src/laxer/worldprotect/worldprotect" name="worldprotect.php" stamp="1589342676479" updateReferences="true"/>
+</session>

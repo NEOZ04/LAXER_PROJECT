@@ -23,10 +23,10 @@ class ProShop {
             "Weapons" => [
                 [0,0,0]
             ],
-            "Block" => [
+            "Armors" => [
                 [0,0,0]
             ],
-            "Armors" => [
+            "Woods" => [
                 [0,0,0]
             ],
         ];
@@ -65,14 +65,18 @@ class ProShop {
     public function getItemsForm(Player $p){
         $ui = CoreUI::Simple(function(Player $p, $data){
             if ($data === null) return false;
-            $this->item = $this->getItems($this->category)[$data];
-            $this->getConfirmForm($p);
+            if ($data === 0) {
+                $this->getMainForm($p);
+            }else {
+                $this->item = $this->getItems($this->category)[$data-1];
+                $this->getConfirmForm($p);
+            }
         });
         $ui->setTitle(CoreUI::fTitle('PRO SHOP'));
         $btns = $this->getItems($this->category);
+        $ui->addButton(CoreUI::fBButton('KEMBALI'));
         foreach ($btns as $v){
             $item = Item::get($v[0], $v[1]);
-            var_dump(CoreUI::getItemImage($v[0], $v[1]));
             $ui->addButton(CoreUI::fButton($item->getName()),0,CoreUI::getItemImage($v[0], $v[1]));
         }
         $ui->sendToPlayer($p);
@@ -80,7 +84,10 @@ class ProShop {
     
     public function getConfirmForm(Player $p){
         $ui = CoreUI::Custom(function (Player $p, $data){
-            if ($data === null) return false;
+            if ($data === null) {
+                $this->getItemsForm($p);
+                return false;
+            }
             $pm = Core::getInstance()->getMoneyAPI();
             $money = $pm->getMoney($p->getName());
             $dataI = $this->item;

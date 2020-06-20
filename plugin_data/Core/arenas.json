@@ -1,0 +1,18 @@
+{
+    "arena-1": {
+        "name": "Arena 1",
+        "positions": {
+            "level": 1,
+            "players": [
+                -5,
+                4,
+                0
+            ],
+            "0": [
+                5,
+                4,
+                0
+            ]
+        }
+    }
+}

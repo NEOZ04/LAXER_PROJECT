@@ -1,16 +1,17 @@
 {
     "name": "NEOZ04",
     "points": 0,
-    "money": 99249999,
+    "money": 99229999,
     "friends": [],
     "jobs": [],
     "keys": [
-        5,
         6,
         6,
+        7,
         0
     ],
-    "join_time": 13660,
+    "join_time": 15993,
     "first_join": 1586317195,
-    "last_join": 1586838560
+    "last_join": 1589638005,
+    "homes": []
 }

@@ -146,7 +146,7 @@ class GuildUI {
                 return false;
             }
             $gp = $this->gm->getPlayerGuild($p->getName());
-            if (is_null($gp)) {
+            if (!is_null($gp)) {
                 $p->sendMessage(CoreUI::Danger('Anda sedang di dalam guild'));
                 return false;
             }
@@ -422,7 +422,7 @@ class GuildUI {
                     }
                 }else {
                     if ($guild->kickMember($p->getName())) {
-                        $m->sendMessage(CoreUI::Warning('Anda berhasil keluar dari guild'));
+                        $p->sendMessage(CoreUI::Warning('Anda berhasil keluar dari guild'));
                     }
                 }
             }

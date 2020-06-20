@@ -1,2 +1,5 @@
 1586840363647	Move 'HomeCommand.php' to 'home'
 1586847986337	Move 'HealCommand.php' to 'cmds'
+1587006659675	Move 'phone' to 'proshop'
+1587006666974	Move 'phone' to 'player'
+1587006695260	Move 'phone' to 'laxer'

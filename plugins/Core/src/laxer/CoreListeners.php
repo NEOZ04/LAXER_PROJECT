@@ -15,13 +15,15 @@ use laxer\pshop\PShopListener;
 use pocketmine\event\entity\EntityLevelChangeEvent;
 use pocketmine\Player;
 use pocketmine\event\player\PlayerChatEvent;
+use pocketmine\event\player\PlayerMoveEvent;
+use laxer\area\AreaListener;
 
 class CoreListeners implements Listener {
     
     public function registerAll(Core $core){
         $listeners = [
             new PlayerListener(), new PhoneListener(), $this, new ShopListener(), new CrateListener(),
-            new PShopListener()
+            new PShopListener(), new AreaListener()
             
         ];
         foreach ($listeners as $listener){
@@ -32,7 +34,8 @@ class CoreListeners implements Listener {
     public function onJoin(PlayerJoinEvent $e){
         Core::getInstance()->getCrate()->loadCrates();
         $p = $e->getPlayer();
-        $p->setAllowFlight(false);
+//         $p->setGamemode(0);
+        $p->setAllowFlight(true);
         $p->setFlying(false);
         $e->setJoinMessage(CoreUI::Notice($p->getName().' join game'));
         $p->teleport(Core::getInstance()->getServer()->getDefaultLevel()->getSafeSpawn());
@@ -42,7 +45,7 @@ class CoreListeners implements Listener {
         $p = $e->getEntity();
         if ($p instanceof Player){
             $p->setFlying(false);
-            $p->setAllowFlight(false);
+            $p->setGamemode(0);
         }
     }
     

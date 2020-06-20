@@ -1,7 +1,0 @@
-<?php 
-
-namespace laxer\pet;
-
-class PetUI {
-    
-}

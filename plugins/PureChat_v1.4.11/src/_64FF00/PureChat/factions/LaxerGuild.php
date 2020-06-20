@@ -35,7 +35,7 @@ class LaxerGuild implements FactionsInterface
     public function getPlayerFaction(Player $player)
     {
         $guild = $this->getAPI()->getPlayerGuild($player->getName());
-        $name = '&7none&r';
+        $name = '';
         if (!is_null($guild)){
             $name = $guild->getAlias();
         }

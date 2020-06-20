@@ -52,6 +52,7 @@ class PShopUI {
                     $this->ItemsPrice($p);
                     break;
                 case "helpers":
+                    $this->Helpers($p);
                     break;
                 case "set chest":
                     Core::$_SESSIONS[$p->getName()]['setChest'] = [

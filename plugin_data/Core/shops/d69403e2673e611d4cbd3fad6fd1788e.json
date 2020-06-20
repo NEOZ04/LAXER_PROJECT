@@ -4,10 +4,28 @@
     "points": 0,
     "max_chest": 3,
     "max_helper": 1,
-    "chests": [],
+    "chests": [
+        {
+            "x": 366,
+            "y": 65,
+            "z": 229,
+            "level_id": 2
+        }
+    ],
     "helpers": [],
     "items_price": {
         "Diamond": 1000
     },
-    "signs": []
+    "signs": [
+        {
+            "x": 367,
+            "y": 66,
+            "z": 224,
+            "level_id": 2,
+            "item": [
+                1,
+                0
+            ]
+        }
+    ]
 }

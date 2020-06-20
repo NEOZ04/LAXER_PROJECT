@@ -2,27 +2,31 @@
 
 namespace laxer;
 
-use pocketmine\plugin\PluginBase;
-use laxer\guild\GuildManager;
-use laxer\economies\Money;
-use pocketmine\utils\Config;
-use laxer\player\PlayerRank;
-use laxer\cmds\SpawnCommand;
-use laxer\shop\Shop;
-use laxer\crate\Crate;
-use laxer\libs\muqsit\invmenu\InvMenuHandler;
-use laxer\pshop\PShop;
-use pocketmine\tile\Chest;
-use laxer\world\WorldManager;
-use laxer\cmds\FlyCommand;
-use laxer\cmds\TeleportCommand;
-use laxer\pet\Pet;
 use laxer\cmds\FeedCommand;
+use laxer\cmds\FlyCommand;
+use laxer\cmds\HealCommand;
+use laxer\cmds\SpawnCommand;
+use laxer\cmds\TeleportCommand;
+use laxer\cmds\home\GetHomeCommand;
 use laxer\cmds\home\HomeCommand;
 use laxer\cmds\home\SetHomeCommand;
-use laxer\cmds\home\GetHomeCommand;
 use laxer\cmds\home\UnsetHomeCommand;
-use laxer\cmds\HealCommand;
+use laxer\crate\Crate;
+use laxer\economies\Money;
+use laxer\guild\GuildManager;
+use laxer\libs\muqsit\invmenu\InvMenuHandler;
+use laxer\pet\Pet;
+use laxer\player\PlayerRank;
+use laxer\pshop\PShop;
+use laxer\shop\Shop;
+use laxer\world\WorldManager;
+use pocketmine\plugin\PluginBase;
+use pocketmine\utils\Config;
+use laxer\area\AreaManager;
+use pocketmine\math\Vector3;
+use laxer\cmds\area\AreaCommand;
+use laxer\pvp\ovso;
+use laxer\pvp\PvP;
 
 class Core extends PluginBase {
     
@@ -32,9 +36,12 @@ class Core extends PluginBase {
     private $moneyaapi;
     private $shop;
     private $pshop;
+    private $lang = 'id';
     private $crate;
     private $worldmanager;
     private $mypet;
+    private $areamanager;
+    private $pvp;
     private $usermgr;
     public static $_SESSIONS = [];
     
@@ -54,8 +61,10 @@ class Core extends PluginBase {
         @mkdir('backup/worlds');
         @mkdir($this->getDataFolder().'shops');
         @mkdir($this->getDataFolder().'shop');
+        @mkdir($this->getDataFolder().'messages');
         
         $this->saveDefaultConfig();
+        $this->saveResource('messages/id.json')
         new Config($this->getDataFolder().'TimeRankConfig.json', Config::JSON, [
             "Junior" => 60,
             "Master" => 86400,
@@ -75,6 +84,8 @@ class Core extends PluginBase {
         $this->shop = new Shop();
         $this->pshop = new PShop();
         $this->userrank = new PlayerRank();
+        $this->pvp = new PvP();
+        $this->areamanager = new AreaManager();
         $this->mypet = new Pet();
         $this->worldmanager = new WorldManager();
         
@@ -83,10 +94,21 @@ class Core extends PluginBase {
             $this->getServer()->loadLevel($name);
         }
         
+        $conf = new Config(Core::getInstance()->getDataFolder().'arenas.json',Config::JSON);
+        $conf->set('arena-1',[
+            "name" => "Arena 1",
+            "positions" => [
+                "level" => 1,
+                "players" => [-5,4,0],[5,4,0]
+            ],
+        ]);
+        $conf->save();
+        
         // Register Commands
         $this->getServer()->getCommandMap()->register('Spawn', new SpawnCommand('spawn', 'back to spawn', 'spawn', ['hub']));
         $this->getServer()->getCommandMap()->register('Fly', new FlyCommand('fly', 'Allow to flight', 'fly', []));
         $this->getServer()->getCommandMap()->register('Feed', new FeedCommand('feed', 'Fill a food', 'feed', []));
+        $this->getServer()->getCommandMap()->register('Area', new AreaCommand('area', 'Area commands', 'area', []));
         $this->getServer()->getCommandMap()->register('Heal', new HealCommand('heal', 'Fill a health', 'heal', []));
         $this->getServer()->getCommandMap()->register('SetHome', new SetHomeCommand('sethome', 'Set new home position', 'sethome', []));
         $this->getServer()->getCommandMap()->register('Home', new HomeCommand('home', 'Teleport to home', 'home', []));
@@ -96,11 +118,6 @@ class Core extends PluginBase {
         $this->shop->loadSigns();
         $this->crate->loadCrates();
         $this->pshop->loadSigns();
-        
-//         $td = strtotime(date('d-m-Y'));
-//         $tm = $td + (60*60*60*24) + (60*60*60*24);
-//         var_dump((($tm-$tm)/24/60/60/60) > 1);
-//         $this->getLogger()->warning(date('d-m-y H:i:s',$td));
     }
     
     public function addVersion(){
@@ -114,6 +131,10 @@ class Core extends PluginBase {
         $v = $vexp[0].'.'.$vexp[1].'.'.$vexp[2];
         $conf->set('version', $v);
         $conf->save();
+    }
+    
+    public function getPvP(){
+        return $this->pvp;
     }
     
     public function userRank(){
@@ -138,6 +159,10 @@ class Core extends PluginBase {
     
     public function getPet(){
         return $this->mypet;
+    }
+    
+    public function getAreaManager(){
+        return $this->areamanager;
     }
     
     public function getMoneyAPI(){

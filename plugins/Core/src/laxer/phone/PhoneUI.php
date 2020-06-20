@@ -10,6 +10,7 @@ use laxer\pshop\PShopUI;
 use laxer\libs\PetShop;
 use laxer\proshop\ProShop;
 use laxer\Core;
+use laxer\pvp\PvPUI;
 
 class PhoneUI {
     
@@ -17,6 +18,7 @@ class PhoneUI {
         $apps = [
             ['Profile', new ProfileUI()],
         ];
+        $apps[] = ['PvP', new PvPUI()];
         
         if ($p->hasPermission('laxer.pets')){
             $apps[] = ['Pet', new PetShop()];

@@ -1,0 +1,12 @@
+{
+    "name": "TEST",
+    "leader": "NEOZ04",
+    "alias": "TEST",
+    "points": 0,
+    "officers": [],
+    "members": {
+        "NEOZ04": true,
+        "Syukran04": true
+    },
+    "base": []
+}

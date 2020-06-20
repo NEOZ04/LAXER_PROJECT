@@ -8,6 +8,7 @@ use jojoe77777\FormAPI\ModalForm;
 use pocketmine\utils\TextFormat;
 use laxer\pshop\Shop;
 use laxer\Core;
+use pocketmine\utils\Config;
 
 class CoreUI {
     
@@ -15,8 +16,17 @@ class CoreUI {
         //
     }
     
-    public static function translate(String $string){
-        return TextFormat::colorize($string);
+    public static function translate(String $string, bool $isKey = false, $bind = []){
+        if ($isKey){
+            $data = new Config(Core::getInstance()->getDataFolder().'messages/id.json');
+            $text = $data->getAll()[$string];
+            foreach ($bind as $k => $v){
+                $text = str_replace($k, $v, $text);
+            }
+            return TextFormat::colorize($text);
+        }else {
+            return TextFormat::colorize($string);
+        }
     }
     
     public static function FPShopSign(Shop $shop, $item_name){
@@ -35,12 +45,15 @@ class CoreUI {
     public static  function Notice($text, $last = '.'){
         return TextFormat::colorize('&b[• &fINFO&b •]&7 '.$text.$last);
     }
+    
     public static function Success($text, $last = '.'){
         return TextFormat::colorize('&a[• &fINFO&a •]&7 '.$text.$last);
     }
+    
     public static function Danger($text, $last = '.'){
         return TextFormat::colorize('&c[• &fINFO&c •]&7 '.$text.$last);
     }
+    
     public static function Warning($text, $last = '.'){
         return TextFormat::colorize('&e[• &fINFO&e •]&7 '.$text.$last);
     }
